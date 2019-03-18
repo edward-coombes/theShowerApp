@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="visible"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/TVTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="41dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/demographics_surveyTitle"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/Submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/submitButtonTitle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Cspinner"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+    <TextView
+        android:id="@+id/TVGender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:labelFor="@+id/Gspinner"
+        android:text="@string/genderTitle"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/Gspinner"
+        app:layout_constraintEnd_toEndOf="@+id/TVRaceEthnicity"
+        app:layout_constraintTop_toTopOf="@+id/Gspinner" />
+
+    <Spinner
+        android:id="@+id/Bspinner"
+        android:layout_width="185dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:entries="@array/Building_Array"
+        android:popupBackground="@color/colorPrimary"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/REspinner"
+        app:layout_constraintTop_toBottomOf="@+id/REspinner" />
+
+    <TextView
+        android:id="@+id/TVRaceEthnicity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/race_ethnictyTitle"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/REspinner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Gspinner"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <EditText
+        android:id="@+id/ETAge"
+        android:layout_width="185dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:inputType="number"
+        android:textSize="18sp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@+id/SYSpinner"
+        app:layout_constraintTop_toBottomOf="@+id/TVTitle" />
+    <!--tools:targetApi="o"-->
+
+    <TextView
+        android:id="@+id/TVAgeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:labelFor="@+id/ETAge"
+        android:text="@string/ageTitle"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ETAge"
+        app:layout_constraintEnd_toEndOf="@+id/TVSchoolYear"
+        app:layout_constraintTop_toTopOf="@+id/ETAge" />
+
+    <Spinner
+        android:id="@+id/REspinner"
+        android:layout_width="185dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:entries="@array/RaceEthnicity_Array"
+        android:popupBackground="@color/colorPrimary"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/TVRaceEthnicity"
+        app:layout_constraintTop_toBottomOf="@+id/Gspinner" />
+
+    <Spinner
+        android:id="@+id/Gspinner"
+        android:layout_width="185dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:entries="@array/Gender_Array"
+        android:popupBackground="@color/colorPrimary"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/REspinner"
+        app:layout_constraintTop_toBottomOf="@+id/SYSpinner" />
+
+    <Spinner
+        android:id="@+id/Cspinner"
+        android:layout_width="185dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:entries="@array/College_Array"
+        android:popupBackground="@color/colorPrimary"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/Bspinner"
+        app:layout_constraintTop_toBottomOf="@+id/Bspinner" />
+
+    <Spinner
+        android:id="@+id/SYSpinner"
+        android:layout_width="185dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:entries="@array/SchoolYear_Array"
+        android:popupBackground="@color/colorPrimary"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/Gspinner"
+        app:layout_constraintTop_toBottomOf="@+id/ETAge" />
+
+    <TextView
+        android:id="@+id/TVSchoolYear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:labelFor="@+id/SYSpinner"
+        android:text="@string/school_yearTitle"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/SYSpinner"
+        app:layout_constraintEnd_toEndOf="@+id/TVGender"
+        app:layout_constraintTop_toTopOf="@+id/SYSpinner" />
+
+    <TextView
+        android:id="@+id/TVBuilding"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:labelFor="@+id/Bspinner"
+        android:text="@string/buildingTitle"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/Bspinner"
+        app:layout_constraintEnd_toEndOf="@+id/TVRaceEthnicity"
+        app:layout_constraintTop_toTopOf="@+id/Bspinner" />
+
+    <TextView
+        android:id="@+id/TVCollege"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:labelFor="@+id/Cspinner"
+        android:text="@string/collegeTitle"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/Cspinner"
+        app:layout_constraintEnd_toEndOf="@+id/TVBuilding"
+        app:layout_constraintTop_toTopOf="@+id/Cspinner" />
+
+</android.support.constraint.ConstraintLayout>

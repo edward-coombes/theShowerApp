@@ -1,0 +1,210 @@
+<resources>
+    <string name="app_name">TheShowerApp</string>
+    <string name="delete_data">Delete Data</string>
+    <string name="genderTitle">Gender:</string>
+    <string name="race_ethnictyTitle">Race/Ethnicty:</string>
+    <string name="demographics_surveyTitle">Demographics Survey</string>
+    <string name="submitButtonTitle">Submit</string>
+    <string name="ageTitle">Age:</string>
+    <string name="school_yearTitle">School Year:</string>
+    <string name="buildingTitle">Building:</string>
+    <string name="collegeTitle">College:</string>
+    <string name="terms_of_serviceTitle">Terms of Service</string>
+    <string name="i_have_read_and_agreed_to_the_terms_of_serviceAgree">I Have Read and Agreed to the Terms of Service</string>
+    <string name="i_have_read_and_agreed_to_the_terms_of_serviceDisgree">I Do Not Agree to the Terms of Service</string>
+    <string name="loading_text"> </string>
+    <string name="aError">Your age must be between 17 and 35</string>
+    <string name="bError">You must choose between the selected buildings</string>
+    <string name="cError">You must choose between the selected colleges</string>
+    <string name="gError">You must choose between the selected genders</string>
+    <string name="reError">You must choose between the racial/ethnic categories</string>
+    <string name="syError">You must choose between the selected school years</string>
+    <string name="ToSError">To use this app, you must agree to the terms of service</string>
+    <string name="quick">Quick</string>
+    <string name="relax">Relax</string>
+    <string name="shave">Shave</string>
+    <string name="startTimer">Start</string>
+    <string name="stopTimer">Stop</string>
+    <string name="spotifyConnect">Connect to Spotify</string>
+    <string name="submitThankYou">Thank you for submitting your shower data</string>
+
+    <string-array name="SchoolYear_Array">
+        <item> </item>
+        <item>Freshman</item>
+        <item>Sophomore</item>
+        <item>Junior</item>
+        <item>Senior</item>
+        <item>Graduate Student</item>
+        <item>Prefer Not to Specify</item>
+    </string-array>
+
+    <string-array name="SchoolYear_Value_Array">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>0</item>
+    </string-array>
+
+
+    <string-array name="Gender_Array">
+        <item> </item>
+        <item>Male</item>
+        <item>Female</item>
+        <item>Non-Binary</item>
+        <item>Prefer Not To Specify</item>
+    </string-array>
+
+    <string-array name="Gender_Value_Array">
+        <item>0</item>
+        <item>M</item>
+        <item>F</item>
+        <item>N</item>
+        <item>U</item>
+    </string-array>
+
+
+    <string-array name="RaceEthnicity_Array">
+        <item> </item>
+        <item>Non-Resident Alien</item>
+        <item>Black or African American</item>
+        <item>American Indian or Alaskan Native</item>
+        <item>Hispanic or Latino (of any race)</item>
+        <item>White</item>
+        <item>Cape Verdean</item>
+        <item>Two or More Races</item>
+        <item>Asian</item>
+        <item>Native Hawaiian or Pacific Islander</item>
+        <item>Unknown, or choose not to disclose</item>
+    </string-array>
+
+    <string-array name="RaceEthnicity_Value_Array">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>5</item>
+        <item>6</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>7</item>
+    </string-array>
+
+    <string-array name="Building_Array">
+        <item> </item>
+        <item>MapleRidge</item>
+        <item>Chestnut</item>
+        <item>Elmwood</item>
+        <item>Pine Dale</item>
+        <item>Oak Glen</item>
+        <item>Cedar Dell West</item>
+        <item>Cedar Dell South</item>
+        <item>Aspen</item>
+        <item>Hickory</item>
+        <item>Birch</item>
+        <item>Ivy</item>
+        <item>Evergreen</item>
+        <item>Willow</item>
+        <item>Prefer Not to Specify</item>
+    </string-array>
+
+    <string-array name="Building_Value_Array">
+        <item>00</item>
+        <item>MR</item>
+        <item>CN</item>
+        <item>EW</item>
+        <item>PD</item>
+        <item>OG</item>
+        <item>DW</item>
+        <item>DS</item>
+        <item>AS</item>
+        <item>HK</item>
+        <item>BC</item>
+        <item>IV</item>
+        <item>EG</item>
+        <item>WL</item>
+        <item>00</item>
+    </string-array>
+
+
+    <string-array name="College_Array">
+        <item> </item>
+        <item>Arts and Sciences</item>
+        <item>Business</item>
+        <item>Engineering</item>
+        <item>Law</item>
+        <item>Marine Sciences and Technology</item>
+        <item>Nursing</item>
+        <item>Visual and Performing Arts</item>
+        <item>Prefer Not to Specify</item>
+    </string-array>
+
+    <string-array name="College_Value_Array">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>0</item>
+    </string-array>
+
+
+    <string-array name="Terms_Of_Service_Array">
+        <item>By downloading or using this software &quot;APP&quot; or accompanying documentation you agree to the following terms and conditions.</item>
+        <item><![CDATA[\n\n<u>License Grant</u>.\n You are hereby granted a personal, non-transferable and non-sublicenseable, nonexclusive, world-wide, royalty free copyright license to reproduce, publicly display, publicly perform, distribute and sublicense the program examples and sample applications (&quot;Sample Applications&quot;) and any such derivative works, in source code and object code form. Except for the limited copyright license above, you are granted no other rights or licenses, by implication, or estoppel, or otherwise, including but not limited to any right to use the Sample Applications for commercial purposes, under any patents or other intellectual property rights of the authors and developers of this material, the University of Massachusetts, or any other party.]]> </item>
+        <item><![CDATA[\n\n<u>No Warranties</u>. \n The Sample Applications contained herein are provided on an &quot;AS IS&quot; basis and to the maximum extent permitted by applicable law, this material is provided AS IS AND WITH ALL FAULTS, and the authors and developers of this material and the University of Massachusetts hereby disclaims all other warranties and conditions, either express, implied or statutory, including, but not limited to, any (if any) implied warranties, duties or conditions of merchantability, of fitness for a particular purpose, of accuracy or completeness of responses, of results, of workmanlike effort, of lack of viruses, and of lack of negligence. ALSO, THERE IS NO WARRANTY OR CONDITION OF TITLE, QUIET ENJOYMENT, QUIET POSSESSION, CORRESPONDENCE TO DESCRIPTION OR NON-INFRINGEMENT WITH REGARD TO THIS MATERIAL.]]></item>
+        <item><![CDATA[\n\n<u>Limitation of Liability</u>. \n IN NO EVENT WILL ANY AUTHOR, DEVELOPER, LICENSOR, OR DISTRIBUTOR OF THIS MATERIAL OR UNIVERSITY OF MASSACHUSETTS BE LIABLE TO ANY OTHER PARTY FOR THE COST OF PROCURING SUBSTITUTE GOODS OR SERVICES, LOST PROFITS, LOSS OF USE, LOSS OF DATA, OR ANY INCIDENTAL, CONSEQUENTIAL, DIRECT, INDIRECT, PUNITIVE, OR SPECIAL DAMAGES WHETHER UNDER CONTRACT, TORT, WARRANTY, OR OTHERWISE, ARISING IN ANY WAY OUT OF THIS OR ANY OTHER AGREEMENT RELATING TO THIS MATERIAL, WHETHER OR NOT SUCH PARTY HAD ADVANCE NOTICE OF THE POSSIBILITY OF SUCH DAMAGES.]]></item>
+        <item><![CDATA[\n\n<u>Redistribution</u>. \n If you choose to distribute these Sample Applications or any derivative works thereof to any third party, you must defend and indemnify all authors, developers, licensors, and distributors (the "Indemnified Parties") of the Sample Applications against any losses, damages and costs arising from claims, lawsuits and other legal actions (excluding actions based on intellectual property infringement claims) brought by a third party against the Indemnified Parties to the extent caused by your acts or omissions in connection with your distribution. Regardless of whether your distribution is a commercial product or not, the license under which you redistribute the Sample Applications or any derivative works thereof must: effectively disclaim on behalf of all authors, developers, licensors, and distributors all warranties and conditions, express and implied, including warranties or conditions of title and non-infringement, and implied warranties or conditions of merchantability and fitness for a particular purpose; effectively exclude on behalf of all authors, developers, licensors, and distributors all liability for damages, including direct, indirect, special, punitive, incidental and consequential damages, such as lost profits; state that any provisions which differ from this license are offered by you alone and not by any other party; and require that the license under which any subsequent distribution of the Sample Applications or derivative works thereof is made satisfy the terms of this section]]></item>
+        <item><![CDATA[\n\n<u>Use of University Name</u>. \nYou may not use the name of the University of Massachusetts or any of its trustees, officers, faculty, students, employees, or agents, or any adaptation of their names, or any terms of this Agreement in any promotional material or other public announcement or disclosure without the prior written consent of the University of Massachusetts. ]]></item>
+        <item><![CDATA[\n\n<u>General</u>.\n]]></item>
+        <item><![CDATA[No other rights are granted by implication, estoppel or otherwise.]]></item>
+        <item><![CDATA[If any provision of this Agreement is invalid or unenforceable under applicable law, it shall not affect the validity or enforceability of the remainder of the terms of this Agreement, and without further action by the parties hereto, such provision shall be reformed to the minimum extent necessary to make such provision valid and enforceable.]]></item>
+        <item><![CDATA[Your rights under this Agreement shall terminate if you fail to comply with any of the material terms or conditions of this Agreement and do not cure such failure in a reasonable period of time after becoming aware of such noncompliance. If all your rights under this Agreement terminate, you agree to cease use of the Sample Applications and any derivative works thereof immediately.]]></item>
+        <item><![CDATA[This Agreement is governed by the laws of the Commonwealth of Massachusetts and the intellectual property laws of the United States of America. No party to this Agreement will bring a legal action under this Agreement more than one year after the cause of action arose. Each party waives its rights to a jury trial in any resulting litigation.]]></item>
+        <item><![CDATA[<u>Privacy Policy</u>]]></item>
+        <item>University of Massachusetts Dartmouth Sustainability Department built the theShowerApp app as a Free app. This SERVICE is provided by University of Massachusetts Dartmouth Sustainability Department at no cost and is intended for use as is.</item>
+        <item>This page is used to inform visitors regarding our policies with the collection, use, and disclosure of Personal Information if anyone decided to use our Service.</item>
+        <item>If you choose to use our Service, then you agree to the collection and use of information in relation to this policy. The Personal Information that we collect is used for providing and improving the Service. We will not use or share your information with anyone except as described in this Privacy Policy.</item>
+        <item>The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which is accessible at theShowerApp unless otherwise defined in this Privacy Policy.</item>
+        <item><![CDATA[<u>Information Collection and Use</u>]]></item>
+        <item>For a better experience, while using our Service, we may require you to provide us with certain personally identifiable information, including but not limited to Age, School Year, Gender, Race/Ethnicty, Residence Building, College, Shower Length, Shower Goal Time, Spotify Track information. The information that we request will be retained by us and used as described in this privacy policy.</item>
+        <item>The app retains the right to use third party services that may collect information used to identify you.</item>
+        <item>Link to third party services used by this app:</item>
+        <item><![CDATA[<a href="https://www.spotify.com/us/legal/privacy-policy/">www.spotify.com/us/legal/privacy-policy/</a>]]></item>
+
+        <item><![CDATA[<u>Log Data</u>]]></item>
+        <item>We want to inform you that whenever you use our Service, in a case of an error in the app we collect data and information (through third party products) on your phone called Log Data. This Log Data may include information such as your device Internet Protocol (“IP”) address, device name, operating system version, the configuration of the app when utilizing our Service, the time and date of your use of the Service, and other statistics. </item>
+        <item><![CDATA[<u>Cookies</u>]]></item>
+        <item>Cookies are files with a small amount of data that are commonly used as anonymous unique identifiers. These are sent to your browser from the websites that you visit and are stored on your device\'s internal memory. </item>
+        <item>This Service does not use these “cookies” explicitly. However, the app may use third party code and libraries that use “cookies” to collect information and improve their services. You have the option to either accept or refuse these cookies and know when a cookie is being sent to your device. If you choose to refuse our cookies, you may not be able to use some portions of this Service.</item>
+        <item><![CDATA[<u>Service Providers</u>]]></item>
+        <item> We may employ third-party companies and individuals due to the following reasons:</item>
+        <item><![CDATA[<ul><li>To facilitate our Service;</li><li>To provide the Service on our behalf;</li><li>To perform Service-related services; or</li><li>To assist us in analyzing how our Service is used.</li></ul>]]></item>
+        <item>We want to inform users of this Service that these third parties have access to your Personal Information. The reason is to perform the tasks assigned to them on our behalf. However, they are obligated not to disclose or use the information for any other purpose.</item>
+        <item><![CDATA[<u>Security</u>]]></item>
+        <item>We value your trust in providing us your Personal Information, thus we are striving to use commercially acceptable means of protecting it. But remember that no method of transmission over the internet, or method of electronic storage is 100% secure and reliable, and we cannot guarantee its absolute security. </item>
+        <item><![CDATA[<u>Links to Other Sites</u>]]></item>
+        <item>This Service may contain links to other sites. If you click on a third-party link, you will be directed to that site. Note that these external sites are not operated by us. Therefore, we strongly advise you to review the Privacy Policy of these websites. We have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party sites or services. </item>
+        <item><![CDATA[<u>Children\'s Privacy</u>]]></item>
+        <item>These Services do not address anyone under the age of 13. We do not knowingly collect personally identifiable information from children under 13. In the case we discover that a child under 13 has provided us with personal information, we immediately delete this from our servers. If you are a parent or guardian and you are aware that your child has provided us with personal information, please contact us so that we will be able to do necessary actions.</item>
+        <item><![CDATA[<u>Changes to This Privacy Policy</u>]]></item>
+        <item>We may update our Privacy Policy from time to time. Thus, you are advised to review this page periodically for any changes. We will notify you of any changes by posting the new Privacy Policy on this page. These changes are effective immediately after they are posted on this page.</item>
+        <item><u>Contact Us</u></item>
+        <item>If you have any questions or suggestions about our Privacy Policy, do not hesitate to contact us sustainbility@umassd.edu</item>
+
+
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+</resources>
+

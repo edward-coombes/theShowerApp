@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <TextView
+        android:id="@+id/display"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="8dp"
+        android:text="0:00"
+        android:textSize="64sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/quick"
+        android:layout_width="244dp"
+        android:layout_height="68dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/quick"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/display" />
+
+    <Button
+        android:id="@+id/relax"
+        android:layout_width="244dp"
+        android:layout_height="68dp"
+        android:layout_marginTop="28dp"
+        android:text="@string/relax"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/quick"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/quick"
+        app:layout_constraintTop_toBottomOf="@+id/quick" />
+
+    <Button
+        android:id="@+id/shave"
+        android:layout_width="244dp"
+        android:layout_height="68dp"
+        android:layout_marginTop="28dp"
+        android:text="@string/shave"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/relax"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/relax"
+        app:layout_constraintTop_toBottomOf="@+id/relax" />
+
+    <Button
+        android:id="@+id/start_stop"
+        android:layout_width="129dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="28dp"
+        android:text="@string/startTimer"
+        android:textSize="24sp"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@+id/shave"
+        tools:layout_editor_absoluteX="141dp" />
+
+    <TextView
+        android:id="@+id/tutorial"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:textSize="18sp"
+        android:text="1.) Select a playlist to play in Spotify.\n2.) Select a timer option for your shower\n3.) Press start and hop in the shower."
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/start_stop"
+        android:textAlignment="center"
+        />
+
+</android.support.constraint.ConstraintLayout>
