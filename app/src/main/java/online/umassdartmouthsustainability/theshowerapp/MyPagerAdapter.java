@@ -3,16 +3,18 @@ package online.umassdartmouthsustainability.theshowerapp;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.widget.ImageView;
 
 import online.umassdartmouthsustainability.theshowerapp.fragments.UserMenuFragment;
 
 class MyPagerAdapter extends FragmentPagerAdapter {
     private int NUM_ITEMS = 3;
-    private volatile String accessToken;
+    public static final int USER_MENU = 0;
+    public static final int STOPWATCH = 1;
+    public static final int SPOTIFY = 2;
 
-    MyPagerAdapter(FragmentManager fragmentManager, String t) {
+    MyPagerAdapter(FragmentManager fragmentManager) {
         super(fragmentManager);
-        accessToken = t;
 
     }
 
@@ -26,12 +28,12 @@ class MyPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         switch (position) {
-            case 0:
+            case USER_MENU:
                 return UserMenuFragment.newInstance();
-            case 1:
+            case STOPWATCH:
                 return online.umassdartmouthsustainability.theshowerapp.fragments.StopwatchFragment.newInstance();
-            case 2:
-                return SpotifyMainFragment.newInstance(accessToken);
+            case SPOTIFY:
+                return SpotifyMainFragment.newInstance();
             default:
                 return null;
         }

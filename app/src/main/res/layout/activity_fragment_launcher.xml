@@ -41,32 +41,51 @@
         app:layout_constraintBottom_toBottomOf="parent"
         >
 
+        <Button
+            android:id="@+id/connect"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Connect With Spotify"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
         <ImageButton
             android:id="@+id/albumArt"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="16dp"
             android:layout_marginRight="8dp"
             android:src="@drawable/playlist_default"
-            android:layout_gravity="start"/>
+            android:layout_gravity="start"
+            android:visibility="gone"
+            />
 
-        <TextView
-            android:id="@+id/songTitle"
+        <LinearLayout
+            android:id="@+id/songTitleContainer"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="32dp"
-            android:gravity="center"
-            android:text="Play a song with Spotify!" />
+            android:layout_height="wrap_content"
+            android:layout_weight="0.7"
+            android:visibility="gone"
+            >
+            <TextView
+                android:id="@+id/songTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:gravity="center"
+                android:text="Play a song with Spotify!" />
+        </LinearLayout>
 
         <ImageButton
             android:id="@+id/pausePlayButton"
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
+            android:layout_marginRight="16dp"
             android:gravity="right"
-            android:src="@drawable/play_icon" />
+            android:src="@drawable/play_icon"
+            android:visibility="gone"
+            />
 
     </LinearLayout>
 

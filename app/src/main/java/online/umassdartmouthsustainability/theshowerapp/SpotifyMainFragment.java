@@ -2,7 +2,6 @@ package online.umassdartmouthsustainability.theshowerapp;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -19,31 +18,21 @@ import android.widget.Gallery;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.spotify.android.appremote.api.ConnectionParams;
-import com.spotify.android.appremote.api.Connector;
+
 import com.spotify.android.appremote.api.SpotifyAppRemote;
-import com.spotify.android.appremote.api.UserApi;
-import com.spotify.protocol.types.Track;
-import com.spotify.sdk.android.authentication.AuthenticationClient;
-import com.spotify.sdk.android.authentication.AuthenticationRequest;
-import com.spotify.sdk.android.authentication.AuthenticationResponse;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import kaaes.spotify.webapi.android.SpotifyApi;
 import kaaes.spotify.webapi.android.SpotifyService;
-import kaaes.spotify.webapi.android.models.Album;
 import kaaes.spotify.webapi.android.models.Pager;
 import kaaes.spotify.webapi.android.models.PlaylistSimple;
-import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
@@ -72,6 +61,10 @@ public class SpotifyMainFragment extends Fragment {
     private SpotifyApi mSpotifyApi;
     private SpotifyService mSpotifyService;
 
+    PopulateArgs popa;
+
+    private static SpotifyMainFragment m;
+
     private String tag = "theShowerApp.spotFrag";
 
     private LinearLayout cont;
@@ -80,33 +73,32 @@ public class SpotifyMainFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static SpotifyMainFragment newInstance(String accessToken) {
-        if(accessToken.equals("")){
-            //The app could not authenticate with spotify
-        } else {
-            //the app was able to authenticate with spotify
+    public static SpotifyMainFragment newInstance() {
+        if(m == null) {
+            m = new SpotifyMainFragment();
         }
-        SpotifyMainFragment fragment = new SpotifyMainFragment();
-        fragment.setAccessToken(accessToken);
 
-        return fragment;
+        return m;
     }
 
 
     private void populate(){
         //add all of the clickable playlist icons to play music
+        MusicManager m = MusicManager.getManager();
+        mSpotifyService = m.getService();
 
         mSpotifyService.getMyPlaylists( new retrofit.Callback<Pager<PlaylistSimple>>() {
             @Override
             public void success(Pager<PlaylistSimple> pager, Response response) {
-                PopulateArgs popa = new PopulateArgs(mSpotifyService,cont,mSpotifyAppRemote,getContext(),pager);
+
+                popa = new PopulateArgs(mSpotifyService,cont,m.getRemote(),getContext(),pager);
                 new PopulateTask().execute(popa);
             }
 
             @Override
             public void failure(RetrofitError error) {
                 //could not access spotify api no playlists available
-                Log.d("Playlist failure", error.toString());
+                Log.e("Playlist failure", error.toString());
             }
         });
 
@@ -118,10 +110,6 @@ public class SpotifyMainFragment extends Fragment {
 
     }
 
-    public void setAccessToken(String t){
-        this.accessToken = t;
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -129,38 +117,10 @@ public class SpotifyMainFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_spotify_main, container, false);
         //get reference to container
         this.cont = v.findViewById(R.id.playlists);
-        if(!accessToken.equals("")) {
-            ConnectionParams connectionParams =
-                    new ConnectionParams.Builder(CLIENT_ID)
-                            .setRedirectUri(REDIRECT_URI)
-                            .showAuthView(true)
-                            .build();
 
-            SpotifyAppRemote.connect(this.getContext(), connectionParams,
-                    new Connector.ConnectionListener() {
-
-                        public void onConnected(SpotifyAppRemote spotifyAppRemote) {
-                            mSpotifyAppRemote = spotifyAppRemote;
-                            Log.d(tag, "Connected! Yay!");
-
-                            // Now you can start interacting with App Remote
-                            connected();
-
-                        }
-
-                        public void onFailure(Throwable throwable) {
-                            Log.e(tag, throwable.getMessage(), throwable);
-
-                            // Something went wrong when attempting to connect! Handle errors here
-                        }
-                    });
-        } else {
-            //Spotify is not authenticated.
-        }
         return v;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -170,8 +130,13 @@ public class SpotifyMainFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-
-
+        Log.d("theShowerApp.spotF","starting");
+        if(popa!= null){
+            popa.setView(getActivity().findViewById(R.id.playlists));
+            new PopulateTask().execute(popa);
+        }else {
+            Log.d("theShowerApp.spotF", "null popa");
+        }
     }
 
     @Override
@@ -180,12 +145,13 @@ public class SpotifyMainFragment extends Fragment {
         SpotifyAppRemote.disconnect(mSpotifyAppRemote);
     }
 
-    private void connected() {
+
+    public void connected() {
 
         //Finish setting up all the stuff.
         mSpotifyApi = new SpotifyApi();
-        mSpotifyApi.setAccessToken(accessToken);
-        mSpotifyService = mSpotifyApi.getService();
+        mSpotifyApi.setAccessToken(MusicManager.getManager().getAuthCode());
+        MusicManager.getManager().setService(mSpotifyApi.getService());
 
         populate();
 
@@ -194,6 +160,8 @@ public class SpotifyMainFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+
+
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
@@ -227,21 +195,22 @@ public class SpotifyMainFragment extends Fragment {
 class PlaylistClickListener implements View.OnClickListener {
     PrefabPlaylist p;
     SpotifyAppRemote r;
-    public PlaylistClickListener(PrefabPlaylist p,SpotifyAppRemote r){
+    Context c;
+    public PlaylistClickListener(PrefabPlaylist p,SpotifyAppRemote r,Context c){
         this.p = p;
         this.r = r;
+        this.c = c;
     }
     @Override
     public void onClick(View v){
         MusicManager m = MusicManager.getManager();
-        r.getPlayerApi().play(p.uri);
         m.setPlaying(true);
-        m.setAlbumArt(p.image);
-        m.setTitle(p.title);
-            /*
-        ((ImageView) ((LinearLayout)v.findViewById(R.id.controlStrip))
-                    .findViewById(R.id.albumArt))
-                    .setImageDrawable(p.image);*/
+        r.getPlayerApi().play(p.uri);
+
+        ((MainActivity)c).setControlStripArt(p.image);
+        ((MainActivity)c).setControlStripText(p.title);
+        ((MainActivity)c).setControlStripPlaying(true);
+
     }
 }
 
@@ -257,6 +226,10 @@ class PopulateArgs {
         this.r = r;
         this.c = c;
         this.p = p;
+    }
+
+    public void setView(LinearLayout v){
+        this.v = v;
     }
 }
 
@@ -296,7 +269,6 @@ class PopulateTask extends AsyncTask<PopulateArgs,Integer,List<PrefabPlaylist>> 
         this.l = new ArrayList<PrefabPlaylist>();
 
         for(PlaylistSimple p : pager.items){
-            Log.d(tag, String.format("Playlist: %s with %s",p.name,p.images.get(0).url));
             //get the image url from the playlist
             currURL = p.images.get(0).url;
 
@@ -305,7 +277,7 @@ class PopulateTask extends AsyncTask<PopulateArgs,Integer,List<PrefabPlaylist>> 
                 Drawable bg = Drawable.createFromStream(is,null);       //make this drawable
                 l.add(new PrefabPlaylist(bg, p.name,p.uri));
             } catch(IOException e){
-                Log.d("theShowerApp.pop","IOException in populate");
+                Log.e("theShowerApp.pop","IOException in populate");
             }
         }
         return l;
@@ -313,6 +285,7 @@ class PopulateTask extends AsyncTask<PopulateArgs,Integer,List<PrefabPlaylist>> 
 
     @Override
     protected void onPostExecute(List<PrefabPlaylist> list){
+        Log.d("theShowerApp.pop","adding playlistviews");
         //Create layout parameters for margins
         LinearLayout.LayoutParams containerStyle = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                                                         LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -357,7 +330,7 @@ class PopulateTask extends AsyncTask<PopulateArgs,Integer,List<PrefabPlaylist>> 
             //create the playlist container layout
             playlist.setId(View.generateViewId());
             playlist.setLayoutParams(containerStyle);
-            playlist.setOnClickListener(new PlaylistClickListener(p,r));
+            playlist.setOnClickListener(new PlaylistClickListener(p,r,c));
 
             //create the playlist image icon
             ImageView b = new ImageView(c);

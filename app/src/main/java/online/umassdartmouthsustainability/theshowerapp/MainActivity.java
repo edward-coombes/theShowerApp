@@ -1,40 +1,32 @@
 package online.umassdartmouthsustainability.theshowerapp;
 
-
-
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
 import com.spotify.android.appremote.api.ConnectionParams;
 import com.spotify.android.appremote.api.Connector;
-import com.spotify.android.appremote.api.PlayerApi;
 import com.spotify.android.appremote.api.SpotifyAppRemote;
 
-import com.spotify.android.appremote.api.UserApi;
-import com.spotify.protocol.client.Subscription;
-import com.spotify.protocol.types.PlayerState;
-import com.spotify.protocol.types.Track;
+
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
 
 
-import kaaes.spotify.webapi.android.SpotifyApi;
-import kaaes.spotify.webapi.android.SpotifyService;
 import online.umassdartmouthsustainability.theshowerapp.fragments.StopwatchFragment;
 import online.umassdartmouthsustainability.theshowerapp.fragments.UserMenuFragment;
 import online.umassdartmouthsustainability.theshowerapp.managers.StopwatchManager;
@@ -46,7 +38,6 @@ public class MainActivity extends FragmentActivity
 
     private int DEM_REQ_CODE = 2345;
 
-    private static volatile boolean readyToDoMainApp = false;
 
     private static final String EXTRA_DATA = "data";
     private static final String ACTION_SUBMIT_USER_DATA = "online.umassdartmouthsustainability.theshowerapp.action.SUBMIT_USER_DATA";
@@ -56,6 +47,7 @@ public class MainActivity extends FragmentActivity
     private static final int SPOT_REQ_CODE = 1337;
     private static final String CLIENT_ID = "69bd0fab3b9343f1ae11805d2b7a61bf";
     private static final String REDIRECT_URI = "http://localhost:8888/callback";
+    private FragmentPagerAdapter adapterViewPager;
 
 
 
@@ -63,11 +55,18 @@ public class MainActivity extends FragmentActivity
         Log.d(tag, "fragment interaction");
     }
 
-    private void displayMainApp(String token){
+    private void displayMainApp(){
         setContentView(R.layout.activity_fragment_launcher);
 
+        findViewById(R.id.connect).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                initSpotifyConnection();
+            }
+        });
+
         ViewPager vpPager = findViewById(R.id.vpPager);
-        FragmentPagerAdapter adapterViewPager = new MyPagerAdapter(getSupportFragmentManager(),token);
+        adapterViewPager = new MyPagerAdapter(getSupportFragmentManager());
         vpPager.setAdapter(adapterViewPager);
         vpPager.setCurrentItem(1);
         MediaPlayer alarmMP = MediaPlayer.create(this, R.raw.alarm);
@@ -76,19 +75,35 @@ public class MainActivity extends FragmentActivity
         StopwatchManager.getInstance(alarmMP, successMP);
     }
 
-    public static void setDisplayMainApp(){
-        MainActivity.readyToDoMainApp = true;
+    void setControlStripArt(Drawable art){
+        ImageView stripArt = findViewById(R.id.albumArt);
+        stripArt.setImageDrawable(art);
     }
+
+    void setControlStripText(String text){
+        TextView stripText = findViewById(R.id.songTitle);
+        stripText.setText(text);
+    }
+
+    void setControlStripPlaying(boolean b){
+        ImageView playing = findViewById(R.id.pausePlayButton);
+        playing.setImageDrawable(
+                    getResources().getDrawable((b)?R.drawable.pause_icon:R.drawable.play_icon));
+
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MusicManager.getManager().setAlbumArt((ImageView) findViewById(R.id.albumArt));
 
         //get referenceto shared preferences
         SharedPreferences sharedPreferences;
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor spEdit = sharedPreferences.edit();
+
+        /*
+        //Developer debug code
         boolean forceStopwatchDisplay = false;
         if(forceStopwatchDisplay) {
 
@@ -96,18 +111,28 @@ public class MainActivity extends FragmentActivity
             spEdit.apply();
         }
 
-        //if the user doesn't already have a user id , then show the the demographis form
+        //developer debug code
         boolean forceDemographics = false;
         if(forceDemographics){
             spEdit.clear();
             spEdit.apply();
-        }
+        }*/
+
+        //if the user doesn't already have a user id , then show the the demographics form
+
         if (sharedPreferences.getString(uid, "").equals("")) {
             Log.d(tag,"Starting demographics form.");
             Intent dem = new Intent(this, Demographics.class);
             startActivityForResult(dem, DEM_REQ_CODE);
         }
 
+        displayMainApp();
+
+
+
+    }
+
+    protected void initSpotifyConnection(){
         AuthenticationRequest.Builder builder =
                 new AuthenticationRequest.Builder(CLIENT_ID, AuthenticationResponse.Type.TOKEN, REDIRECT_URI);
 
@@ -118,7 +143,6 @@ public class MainActivity extends FragmentActivity
 
 
         AuthenticationClient.openLoginActivity(this,SPOT_REQ_CODE,request);
-
     }
 
     @Override
@@ -142,7 +166,6 @@ public class MainActivity extends FragmentActivity
                 case TOKEN:
                     // Handle successful response
                     MusicManager.getManager().setAuthCode(response.getAccessToken());
-                    displayMainApp(response.getAccessToken());
                     ConnectionParams connectionParams =
                             new ConnectionParams.Builder(CLIENT_ID)
                                     .setRedirectUri(REDIRECT_URI)
@@ -153,16 +176,29 @@ public class MainActivity extends FragmentActivity
                             new Connector.ConnectionListener() {
 
                                 public void onConnected(SpotifyAppRemote spotifyAppRemote) {
+                                    //create references to remote
                                     SpotifyAppRemote mSpotifyAppRemote = spotifyAppRemote;
                                     MusicManager m = MusicManager.getManager();
                                     m.setRemote(mSpotifyAppRemote);
+
+                                    //perform connection routine in spotify fragment
+                                    ((SpotifyMainFragment)adapterViewPager
+                                            .getItem(MyPagerAdapter.SPOTIFY))
+                                            .connected();
+                                    //set click listener for pause/play button
                                     findViewById(R.id.pausePlayButton).setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
-                                            if(m.isPlaying())
+                                            if(!m.isPlaying()) {
                                                 mSpotifyAppRemote.getPlayerApi().resume();
-                                            else
+                                                ((ImageView)v).setImageDrawable(
+                                                        getResources().getDrawable(R.drawable.pause_icon));
+                                            } else {
                                                 mSpotifyAppRemote.getPlayerApi().pause();
+                                                ((ImageView)v).setImageDrawable(
+                                                        getResources().getDrawable(R.drawable.play_icon));
+                                            }
+                                            m.setPlaying(!m.isPlaying());
                                         }
                                     });
 
@@ -174,23 +210,27 @@ public class MainActivity extends FragmentActivity
                                 }
                             });
 
-
-
+                    //display the control strip
+                    findViewById(R.id.connect).setVisibility(View.GONE);
+                    findViewById(R.id.albumArt).setVisibility(View.VISIBLE);
+                    findViewById(R.id.songTitleContainer).setVisibility(View.VISIBLE);
+                    findViewById(R.id.pausePlayButton).setVisibility(View.VISIBLE);
                     break;
 
                 // Auth flow returned an error
                 case ERROR:
                     // Handle error response
-                    Log.d(tag, response.getError());
-                    displayMainApp("");
+                    Toast.makeText(getApplicationContext(),
+                            "Cannot connect to spotify: " + response.getError(),
+                            Toast.LENGTH_LONG).show();
                     break;
 
                 // Most likely auth flow was cancelled
                 default:
                     // Handle other cases
-                    Log.d(tag, "Unknown issue prevented successful aquisition ");
-                    displayMainApp("");
-
+                    Toast.makeText(getApplicationContext(),
+                            "Cannot connect to spotify due to unknown error (user cancel?)",
+                            Toast.LENGTH_SHORT).show();
             }
 
         }

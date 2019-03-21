@@ -189,7 +189,6 @@ public class ServerConnection extends IntentService {
                         } else {
                             spEdit.putString(uid, response);
                             spEdit.apply();
-                            MainActivity.setDisplayMainApp();
                         }
                     }
                 },
@@ -277,7 +276,6 @@ public class ServerConnection extends IntentService {
     }
 
     public void broadcastIntent(String json) {
-        Log.d(tag, "broadcasting...");
         StringBuilder sb = new StringBuilder(json);
         sb.deleteCharAt(sb.length() - 1);
         sb.deleteCharAt(0);
@@ -286,7 +284,7 @@ public class ServerConnection extends IntentService {
         intent.putExtra("data", j);
         intent.setAction(INTENT_RETRIEVE_SHOWER_DATA);
         sendBroadcast(intent);
-        Log.d(tag, "broadcasted.");
+        Log.d(tag, "broadcasting");
     }
 
     private void errorDisplay(String func, VolleyError e) {

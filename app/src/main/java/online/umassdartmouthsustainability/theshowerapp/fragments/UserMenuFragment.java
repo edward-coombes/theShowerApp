@@ -47,6 +47,8 @@ public class UserMenuFragment extends Fragment {
 
     private static final String tag = "theShowerApp.UserMenu";
 
+    UserMenuReceiver receiver;
+
     //Not quite sure what it does, but it's gotta be there
     @SuppressWarnings("unused")
     private OnFragmentInteractionListener mListener;
@@ -90,7 +92,7 @@ public class UserMenuFragment extends Fragment {
         //get the user data
         //send the data to the server
         Intent ServerConn = new Intent(getActivity(), ServerConnection.class);
-        UserMenuReceiver receiver = new UserMenuReceiver(this);
+        receiver = new UserMenuReceiver(this);
         try {
             getActivity().registerReceiver(receiver, new IntentFilter("online.umassdartmouthsustainability.theshowerapp.intent.RETRIEVE_SHOWER_DATA"));
         } catch (NullPointerException e) {
@@ -114,7 +116,6 @@ public class UserMenuFragment extends Fragment {
 
 
     public void parseData(String json) {
-        Log.d(tag, "parsing data");
         try {
             char[] jsonCharArr = json.toCharArray();
             LinkedList<JSONObject> jsonList = new LinkedList<>();
@@ -130,7 +131,7 @@ public class UserMenuFragment extends Fragment {
 
 
         } catch (JSONException e) {
-            Log.d(tag, "invalid json format");
+            Log.e(tag, "invalid json format");
         }
     }
 
@@ -138,7 +139,7 @@ public class UserMenuFragment extends Fragment {
         TableRow t;
 
         //create the header
-        table.removeAllViews();
+        //table.removeAllViews();
         t = createHeaders();
         table.addView(t);
         for (int i = 0; i < j.size(); i++) {
@@ -186,7 +187,7 @@ public class UserMenuFragment extends Fragment {
                 }
                 tr.addView(tv);
             } catch (JSONException e) {
-                Log.d(tag, "The data is not properly formatted");
+                Log.e(tag, "The data is not properly formatted");
             }
         }
         return tr;
@@ -195,6 +196,9 @@ public class UserMenuFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        String d = UserMenuManager.getInstance().getData();
+        if(d != null)
+            parseData(d);
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
@@ -207,6 +211,10 @@ public class UserMenuFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+        Log.d(tag,"Unregistering receiver");
+        getActivity().unregisterReceiver(receiver);
+
+
     }
 
     @Override
