@@ -49,7 +49,7 @@ public class SpotifyMainFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private static final int SPOT_REQ_CODE = 1337;
-    private static final String CLIENT_ID = "69bd0fab3b9343f1ae11805d2b7a61bf";
+    private static final String CLIENT_ID = "";
     private static final String REDIRECT_URI = "http://localhost:8888/callback";
 
     private List<String> imageURL = new ArrayList<String>();
